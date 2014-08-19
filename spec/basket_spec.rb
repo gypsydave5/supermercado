@@ -1,9 +1,9 @@
 require 'basket'
 
 describe Basket do
-	let(:basket)  { Basket.new }
-	let(:product) {double :product}
-	let(:product_two) {double :product}
+	let ( :basket      ) { Basket.new                         } 
+	let ( :product     ) { double :product, id: :peanuts_100g } 
+	let ( :product_two ) { double :product, id: :teabags_20   } 
 
 	it 'should initialized empty' do
 		expect(basket.has_items?).to be false
@@ -26,7 +26,7 @@ describe Basket do
 
 	it "can release all products at once" do
 		basket.receive product, product_two
-		expect(basket.dump_all!).to eq [product, product_two]
+		expect(basket.dump_all!).to eq ({product.id =>  1, product_two.id => 1})
 	end
 
 end
