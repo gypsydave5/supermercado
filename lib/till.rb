@@ -10,27 +10,23 @@ class Till
 		self
 	end
 
-
-
 	def items_in_till 
-
 		@items 
-
 	end
 
 	def load_prices price_list
-
 		@price_list = price_list
-
 		self
-
 	end
 
 	def price_of product
-
 		@price_list.price_of(product)
-
 	end
-
+	
+	def total_price
+		@items.inject(0) do |total, (item, quantity)|
+			total += @price_list.price_of(item) * quantity
+		end
+	end
 
 end

@@ -2,11 +2,15 @@ require 'till'
 
 describe Till do
 		
-	let ( :basket )  { double :basket, has_items?: true, dump_all!: { product_one: 1, product_two: 2 } }
-	let ( :product_one ) { double :product, id: :baked_beans }
-	let ( :product_two ) { double :product, id: :cigarettes }
+	let ( :basket )  { double :basket, has_items?: true, dump_all!: { cigarettes: 1, baked_beans: 2 } }
 	let (:price_list ) { double :price_list  }
 	let ( :till   )  { Till.new                         } 
+
+	def pop_price_list
+		allow(price_list).to receive(:price_of).with(:cigarettes).and_return(7.99)
+		allow(price_list).to receive(:price_of).with(:baked_beans).and_return(0.59)
+		till.load_prices(price_list)
+	end
 
 	it 'accept a basket of products' do
 		expect(till.accept_basket(basket)).to be till
@@ -20,7 +24,7 @@ describe Till do
 
 	it 'received the items dumped by the basket' do
 		expect(till.accept_basket(basket).items_in_till).
-			to eq ({ product_one: 1, product_two: 2 })
+			to eq ({ cigarettes: 1, baked_beans: 2 } )
 	end
 
 	it 'can have a price list' do
@@ -28,14 +32,15 @@ describe Till do
 	end
 
 	it 'can get the price of an item in the checkout (like when they do a price check at the till)' do
+		pop_price_list
 		till.accept_basket(basket)
-		till.load_prices(price_list)
-		allow(price_list).to receive(:price_of).with(:cigarettes).and_return(7.99)
 		expect(till.price_of(:cigarettes)).to eq 7.99
 	end
 
 	it 'calculates the total value of the items in the basket' do
-		allow(price_list).to receive(:price_of).with(:cigarettes).and_return(7.99)
-		allow(price_list).to receive(:price_of).with(:baked_beans).and_return(0.59)
+		pop_price_list
+		till.accept_basket(basket)
+		expect(till.total_price).to eq (( 2*0.59 ) + 7.99)
 	end
+
 end

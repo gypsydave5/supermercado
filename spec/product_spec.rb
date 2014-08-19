@@ -13,6 +13,4 @@ describe Product do
 		expect(product.price).to eq 10.00
 	end
 
-
-
 end
