@@ -20,10 +20,21 @@ describe Till do
 
 	it 'received the items dumped by the basket' do
 		expect(till.accept_basket(basket).items_in_till).
-			to be ({ product_one: 1, product_two: 2 })
+			to eq ({ product_one: 1, product_two: 2 })
 	end
 
-	xit 'calculates the total value of the items in the basket' do
+	it 'can have a price list' do
+		expect(till.load_prices(price_list)).to be till
+	end
+
+	it 'can get the price of an item in the checkout (like when they do a price check at the till)' do
+		till.accept_basket(basket)
+		till.load_prices(price_list)
+		allow(price_list).to receive(:price_of).with(:cigarettes).and_return(7.99)
+		expect(till.price_of(:cigarettes)).to eq 7.99
+	end
+
+	it 'calculates the total value of the items in the basket' do
 		allow(price_list).to receive(:price_of).with(:cigarettes).and_return(7.99)
 		allow(price_list).to receive(:price_of).with(:baked_beans).and_return(0.59)
 	end
