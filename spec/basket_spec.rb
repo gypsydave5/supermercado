@@ -28,5 +28,4 @@ describe Basket do
 		basket.receive product, product_two
 		expect(basket.dump_all!).to eq ({product.id =>  1, product_two.id => 1})
 	end
-
 end

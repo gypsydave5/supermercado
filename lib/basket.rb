@@ -9,7 +9,6 @@ class Basket
 
 	def receive *received_products
 		received_products.each { |product| @products[product.id] += 1 }
-		end
 		self
 	end
 
