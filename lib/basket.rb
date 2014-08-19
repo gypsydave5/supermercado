@@ -26,4 +26,8 @@ class Basket
 		dumped_products
 	end
 
+	def count_products_by_id(id)
+		@products[id]
+	end
+
 end
