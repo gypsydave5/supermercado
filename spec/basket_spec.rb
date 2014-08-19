@@ -29,4 +29,12 @@ describe Basket do
 		expect(basket.dump_all!).to eq ({product.id =>  1, product_two.id => 1})
 	end
 
+	it "should be able to give a list of equal products" do
+		basket.receive product, product, product_two
+
+		expect(basket.count_products_by_ID(product.id)).to eq [product.id]
+
+
+	end
+
 end

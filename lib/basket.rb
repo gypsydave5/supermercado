@@ -15,7 +15,7 @@ class Basket
 	end
 
 	def count_products
-		@products.values.collect(:+)
+		@products.values.inject(:+)
 	end
 
 	def remove product
