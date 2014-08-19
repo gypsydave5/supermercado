@@ -1,4 +1,7 @@
-class Basket 
+class Basket
 
+	def has_items?
+		false
+	end
 
 end
