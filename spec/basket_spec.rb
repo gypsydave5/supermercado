@@ -5,7 +5,6 @@ describe Basket do
 	let(:product) {double :product}
 	let(:product_two) {double :product}
 
-
 	it 'should initialized empty' do
 		expect(basket.has_items?).to be false
 	end

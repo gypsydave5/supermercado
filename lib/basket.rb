@@ -8,9 +8,7 @@ class Basket
 	end
 
 	def receive *received_products
-		received_products.each do |product|
-			@products << product
-		end
+		@products += received_products
 		self
 	end
 
@@ -19,7 +17,12 @@ class Basket
 	end
 
 	def remove product
-
 		@products.delete product
+	end
+
+	def dump_all!
+		dumped_products = @products
+		@products = []
+		dumped_products
 	end
 end
