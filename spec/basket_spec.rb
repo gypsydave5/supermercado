@@ -1,9 +1,9 @@
 require 'basket'
 
 describe Basket do
-	let ( :basket      ) { Basket.new                         } 
-	let ( :product     ) { double :product, id: :peanuts_100g } 
-	let ( :product_two ) { double :product, id: :teabags_20   } 
+	let ( :basket      ) { Basket.new                         }
+	let ( :product     ) { double :product, id: :peanuts_100g }
+	let ( :product_two ) { double :product, id: :teabags_20   }
 
 	it 'should initialized empty' do
 		expect(basket.has_items?).to be false
@@ -28,4 +28,10 @@ describe Basket do
 		basket.receive product, product_two
 		expect(basket.dump_all!).to eq ({product.id =>  1, product_two.id => 1})
 	end
+
+	it "should be able to give a list of equal products" do
+		basket.receive product, product, product_two
+		expect(basket.count_products_by_ID(product.id)).to eq [product.id]
+	end
+
 end

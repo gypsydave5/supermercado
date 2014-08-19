@@ -25,4 +25,5 @@ class Basket
 		@products = {}
 		dumped_products
 	end
+
 end
