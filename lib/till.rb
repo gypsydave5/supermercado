@@ -26,7 +26,7 @@ class Till
 	def total_price
 		@items.inject(0) do |total, (item, quantity)|
 			total += @price_list.price_of(item) * quantity
-		end
+	end
 	end
 
 end
