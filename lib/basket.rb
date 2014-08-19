@@ -1,28 +1,17 @@
 class Basket
-	def initialize
-		@products = []
+
+	attr_accessor :line_items
+
+	def initialize(*line_items)
+		@line_items = line_items
 	end
 
-	def has_items?
-		@products.any?
+	def delete_line(rejected_item)
+		@line_items.delete_if {|line| line.item_name == rejected_item}
 	end
 
-	def receive *received_products
-		@products += received_products
-		self
+	def total
+		@line_items.inject(0) {|total, line| total + line.total}
 	end
 
-	def count_products
-		@products.count
-	end
-
-	def remove product
-		@products.delete product
-	end
-
-	def dump_all!
-		dumped_products = @products
-		@products = []
-		dumped_products
-	end
 end

@@ -1,32 +1,22 @@
 require 'basket'
 
 describe Basket do
-	let(:basket)  { Basket.new }
-	let(:product) {double :product}
-	let(:product_two) {double :product}
 
-	it 'should initialized empty' do
-		expect(basket.has_items?).to be false
+  let ( :basket     )  { Basket.new(line_item1, line_item2)                  } 
+  let ( :line_item2 )  { double :line_item, item_name: :ham, total: 20.00    } 
+  let ( :line_item1 )  { double :line_item, item_name: :cabbage, total: 0.59 } 
+
+	it 'takes line items when initialized' do
+		expect(basket.line_items).to eq [ line_item1, line_item2 ]
 	end
 
-	it 'receives products' do
-		expect(basket.receive(product)).to eq basket
+	it 'can remove entire lines' do
+		basket.delete_line(:ham)
+		expect(basket.line_items).to eq [ line_item1 ]
 	end
 
-	it "tells how many products got inside" do
-		basket.receive product, product
-		expect(basket.count_products).to eq 2
-	end
-
-	it "can have products taken out" do
-		basket.receive product, product_two
-		basket.remove (product)
-		expect(basket.count_products).to eq 1
-	end
-
-	it "can release all products at once" do
-		basket.receive product, product_two
-		expect(basket.dump_all!).to eq [product, product_two]
+	it 'can calculate the total price' do
+		expect(basket.total).to eq 20.59	
 	end
 
 end
