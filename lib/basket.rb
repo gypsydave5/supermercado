@@ -1,6 +1,6 @@
 class Basket
 	def initialize
-		@products = {}
+		@products = Hash.new(0)
 	end
 
 	def has_items?
@@ -8,14 +8,13 @@ class Basket
 	end
 
 	def receive *received_products
-		received_products.each do |product|
-			@products.include?(product.id) ?  @products[product.id] += 1 : @products[product.id] = 1
+		received_products.each { |product| @products[product.id] += 1 }
 		end
 		self
 	end
 
 	def count_products
-		@products.values.collect(:+)
+		@products.values.inject(:+)
 	end
 
 	def remove product
