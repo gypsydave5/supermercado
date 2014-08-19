@@ -6,19 +6,21 @@ describe Basket do
 
 	it 'should initialized empty' do
 		expect(basket.has_items?).to be false
-	end	
+	end
 
 	it 'receives products' do
-		
 		expect(basket.receive(product)).to eq basket
 	end
 
 	it "tells how many products got inside" do
-
 		basket.receive product
-
 		expect(basket.count_products).to eq 1
+	end
 
+	it "can have products taken out" do
+		basket.receive (product)
+		basket.remove (product)
+		expect(basket.count_products).to eq 0
 	end
 
 end
