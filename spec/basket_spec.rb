@@ -26,8 +26,8 @@ describe Basket do
 	end
 
 	it "can release all products at once" do
-
-
+		basket.receive product, product_two
+		expect(basket.dump_all!).to eq [product, product_two]
 	end
 
 end
