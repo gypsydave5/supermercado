@@ -4,4 +4,10 @@ class Basket
 		false
 	end
 
+	def receive product
+
+		self
+		
+	end
+
 end
