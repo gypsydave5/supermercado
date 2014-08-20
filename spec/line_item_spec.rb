@@ -1,9 +1,13 @@
+require 'money_spec'
+require 'money'
 require 'line_item'
 
 describe LineItem do
 
-  let ( :line_item )  { LineItem.new(item: item, quantity: 1) } 
-	let ( :item      )  { double :item, price: 0.47             } 
+	it_behaves_like "working with money"
+
+  let ( :line_item )  { LineItem.new(item: item, quantity: 1) }
+	let ( :item      )  { double :item, price: 0.47             }
 
 	it 'has an item and a quantity' do
 		expect(line_item.item).to eq item

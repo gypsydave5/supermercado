@@ -1,4 +1,8 @@
+require 'money'
+
 class LineItem
+
+	include Money
 
 	attr_accessor :quantity, :item
 
@@ -8,7 +12,7 @@ class LineItem
 	end
 
 	def total
-		@item.price * quantity
+		money_round(@item.price * quantity)
 	end
 
 end
